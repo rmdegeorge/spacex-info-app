@@ -15,25 +15,19 @@ const MissionsHeading = styled.h2`
 
 `;
 
-class Missions extends React.Component {
-  constructor(props) {
-    super(props);
-  };
-  render() {
-    console.log('Missions')
-    console.log(this.props.missions)
-    const displayMissions = this.props.missions.map((mission) => {
-      return (
-        <Mission key={mission.mission_id} missionInfo={mission} />
-      )
-    })
+function Missions(props) {
+  const displayMissions = props.missions.map((mission) => {
     return (
-      <MissionsContainer>
-        <MissionsHeading>Missions</MissionsHeading>
-        {displayMissions}
-      </MissionsContainer>
+      <Mission key={mission.mission_id} missionInfo={mission} />
     );
-  };
+  });
+
+  return (
+    <MissionsContainer>
+      <MissionsHeading>Missions</MissionsHeading>
+      {displayMissions}
+    </MissionsContainer>
+  );
 };
 
 export default withData(Missions);

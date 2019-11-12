@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 const MissionContainer = styled.div`
@@ -11,6 +12,11 @@ const MissionContainer = styled.div`
 
 const MissionTitle = styled.div`
   border-bottom: 1px solid #000000;
+`;
+
+const MissionLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 const MissionId = styled.div`
@@ -26,7 +32,9 @@ function Mission(props) {
   return (
     <MissionContainer>
       <MissionTitle>
-        <strong>{mission_name}</strong>
+        <MissionLink to={`/Missions/${mission_id}`} >
+          <strong>{mission_name}</strong>
+        </MissionLink>
       </MissionTitle>
       <MissionId>
         Mission ID: {mission_id}

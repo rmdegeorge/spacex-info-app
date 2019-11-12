@@ -12,7 +12,7 @@ const NavLink = styled(Link)`
   text-align: center;
   
   :hover {
-
+    color: red;
   }
 `;
 
@@ -21,6 +21,9 @@ function Navbar(props) {
     <NavContainer>
       <NavLink to='/'>Home</NavLink>
       <NavLink to='/Missions'>Missions</NavLink>
+      <NavLink to='/Launches'>Launches</NavLink>
+      <NavLink to='/Payloads'>Payloads</NavLink>
+
     </NavContainer>
   );
 }

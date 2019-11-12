@@ -9,14 +9,14 @@ class DataProvider extends Component {
     super(props);
     this.state = {
       missions: [],
-      capsules: [],
+      launches: [],
 
     };
   };
   componentDidMount() {
     axios.get(`${API_HOST}missions/`)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({
           missions: response.data,
         })
@@ -24,6 +24,18 @@ class DataProvider extends Component {
       .catch(error => {
         console.log(error);
       });
+    
+    axios.get(`${API_HOST}launches/`)
+      .then(response => {
+        // console.log(response.data);
+        this.setState({
+          launches: response.data,
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
   }
   render() {
     return (
