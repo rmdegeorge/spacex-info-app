@@ -8,7 +8,7 @@ import Home from './containers/Home';
 import Missions from './containers/Missions';
 
 const AppContainer = styled.div`
-
+  width: 100vw;
 `;
 
 

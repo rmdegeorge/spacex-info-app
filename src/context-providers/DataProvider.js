@@ -17,6 +17,9 @@ class DataProvider extends Component {
     axios.get(`${API_HOST}missions/`)
       .then(response => {
         console.log(response.data);
+        this.setState({
+          missions: response.data,
+        })
       })
       .catch(error => {
         console.log(error);
