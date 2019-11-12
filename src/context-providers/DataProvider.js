@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const API_HOST = process.env.REACT_APP_API_HOST;
 const {Provider,Consumer} = React.createContext();
 
 class DataProvider extends Component {
@@ -13,7 +14,13 @@ class DataProvider extends Component {
     };
   };
   componentDidMount() {
-    axios.get()
+    axios.get(`${API_HOST}missions/`)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   render() {
     return (

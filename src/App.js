@@ -1,11 +1,27 @@
 import React from 'react';
-import 
+import {Switch,Route} from 'react-router-dom';
+import styled from 'styled-components';
+
+import GlobalStyle from './themes/GlobalStyle';
+import Header from './components/Header';
+import Home from './containers/Home';
+import Missions from './containers/Missions';
+
+const AppContainer = styled.div`
+
+`;
+
 
 function App(props) {
   return (
-    <div>
-      
-    </div>
+    <AppContainer>
+      <GlobalStyle />
+      <Header />
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/Missions' component={Missions} />
+      </Switch>
+    </AppContainer>
   );
 }
 
