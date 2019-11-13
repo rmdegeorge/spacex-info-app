@@ -13,7 +13,11 @@ class DataProvider extends Component {
 
     };
   };
-  componentDidMount() {
+  getMissionDetails = (mission_id) => {
+    return axios.get(`${API_HOST}missions/${mission_id}`)
+  }
+
+  getMissionsData = () => {
     axios.get(`${API_HOST}missions/`)
       .then(response => {
         // console.log(response.data);
@@ -24,7 +28,8 @@ class DataProvider extends Component {
       .catch(error => {
         console.log(error);
       });
-    
+  }
+  getLaunchesData = () => {
     axios.get(`${API_HOST}launches/`)
       .then(response => {
         // console.log(response.data);
@@ -41,6 +46,9 @@ class DataProvider extends Component {
     return (
       <Provider value={{
         ...this.state,
+        getMissionsData: this.getMissionsData,
+        getLaunchesData: this.getLaunchesData,
+        getMissionDetails: this.getMissionDetails,
         
       }}>
         {this.props.children}

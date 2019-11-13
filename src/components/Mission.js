@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import {withData} from '../context-providers/DataProvider';
 
 const MissionContainer = styled.div`
   width: 75%;
@@ -27,23 +28,26 @@ const MissionDescription = styled.div`
   margin-top: 5px;
 `;
 
-function Mission(props) {
-  const {mission_id,mission_name,description,manufacturers,wikipedia,twitter,payload_ids} = props.missionInfo
-  return (
-    <MissionContainer>
-      <MissionTitle>
-        <MissionLink to={`/Missions/${mission_id}`} >
-          <strong>{mission_name}</strong>
-        </MissionLink>
-      </MissionTitle>
-      <MissionId>
-        Mission ID: {mission_id}
-      </MissionId>
-      <MissionDescription>
-        {description}
-      </MissionDescription>
-    </MissionContainer>
-  );
+class Mission extends React.Component {
+
+  render() {
+    const {mission_id,mission_name,description,manufacturers,wikipedia,twitter,payload_ids} = this.props.missionInfo
+    return (
+      <MissionContainer>
+        <MissionTitle>
+          <MissionLink to={`/Missions/${mission_id}`} >
+            <strong>{mission_name}</strong>
+          </MissionLink>
+        </MissionTitle>
+        <MissionId>
+          Mission ID: {mission_id}
+        </MissionId>
+        <MissionDescription>
+          {description}
+        </MissionDescription>
+      </MissionContainer>
+    );
+  };
 }
 
-export default Mission;
+export default withData(Mission);

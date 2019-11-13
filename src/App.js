@@ -1,6 +1,7 @@
 import React from 'react';
 import {Switch,Route} from 'react-router-dom';
 import styled from 'styled-components';
+import {withData} from './context-providers/DataProvider';
 
 import GlobalStyle from './themes/GlobalStyle';
 import Header from './components/Header';
@@ -19,24 +20,32 @@ const AppContainer = styled.div`
 `;
 
 
-function App(props) {
-  return (
-    <AppContainer>
-      <GlobalStyle />
-      <Header />
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/Missions' component={Missions} />
-        <Route path='/Missions/:mission_id' component={MissionDetail} />
-        <Route exact path='/Launches' component={Launches} />
-        <Route path='/Launches/FutureLaunches' component={FutureLaunches} />
-        <Route path='/Launches/PastLaunches' component={PastLaunches} />
-        <Route path='/Launches/:flight_number' component={Launch} />
-        <Route exact path='/Payloads' component={Payloads} />
-        <Route path='/Payloads/:uid' component={Payload} />
-      </Switch>
-    </AppContainer>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  };
+  // componentDidMount() {
+  //   this.props.getMissionsData()
+  // }
+  render() {
+    return (
+      <AppContainer>
+        <GlobalStyle />
+        <Header />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/Missions' component={Missions} />
+          <Route path='/Missions/:mission_id' component={MissionDetail} />
+          <Route exact path='/Launches' component={Launches} />
+          <Route path='/Launches/FutureLaunches' component={FutureLaunches} />
+          <Route path='/Launches/PastLaunches' component={PastLaunches} />
+          <Route path='/Launches/:flight_number' component={Launch} />
+          <Route exact path='/Payloads' component={Payloads} />
+          <Route path='/Payloads/:uid' component={Payload} />
+        </Switch>
+      </AppContainer>
+    );
+  };
 }
 
-export default App;
+export default withData(App);
