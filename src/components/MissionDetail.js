@@ -27,43 +27,52 @@ class MissionDetail extends React.Component {
     this.state = {
       mission_id: this.props.match.params.mission_id,
       missionDetails: {},
+      displayManufacturers: [],
+      displayPayloads: [],
     }
   };
   componentDidMount() {
     this.props.getMissionDetails(this.state.mission_id).then(response => {
-      console.log('missionDetails response')
-      console.log(response.data);
       this.setState({
         missionDetails: response.data
       })
+      this.mapManufacturers();
+      this.mapPayloads();
+    })
+  }
+  mapManufacturers = () => {
+    const {mission_id,manufacturers,} = this.state.missionDetails;
+    const displayManufacturers = manufacturers.map((manufacturer) => <li key={manufacturer + mission_id}>{manufacturer}</li>)
+    this.setState({
+      displayManufacturers: displayManufacturers
+    })
+  }
+  mapPayloads = () => {
+    const {payload_ids} = this.state.missionDetails;
+    const displayPayloads = payload_ids.map((payload) => <li key={payload}>{payload}</li>)
+    this.setState({
+      displayPayloads: displayPayloads
     })
   }
   render() {
-    console.log('MissionDetail state:')
-    console.log(this.state.missionDetails)
-  
-    const mission = this.props.missions.find(mission => mission.mission_id === this.props.match.params.mission_id);
-    
     const {mission_name,mission_id,description,manufacturers,wikipedia,twitter,payload_ids} = this.state.missionDetails;
-    // const displayManufacturers = manufacturers.map((manufacturer) => <li key={manufacturer + mission_id}>{manufacturer}</li>)
-    // const displayPayloads = payload_ids.map((payload) => <li key={payload}>{payload}</li>)
     return (
       <MissionDetailContainer>
         <Title>{mission_name}</Title>
         <MissionId>{mission_id}</MissionId>
         <Description>{description}</Description>
-        {/* <Manufacturers>
+        <Manufacturers>
           <strong>Manufacturers:</strong>
           <ul>
-            {displayManufacturers}
+            {this.state.displayManufacturers}
           </ul>
         </Manufacturers>
         <Payloads>
           <strong>Payloads:</strong>
           <ul>
-            {displayPayloads}
+            {this.state.displayPayloads}
           </ul>
-        </Payloads> */}
+        </Payloads>
       </MissionDetailContainer>
     );
   }

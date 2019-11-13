@@ -2,30 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import {withData} from '../context-providers/DataProvider';
 
-import Launch from '../components/Launch';
+import LaunchesContainer from './LaunchesContainer';
 
-const LaunchesContainer = styled.div`
+const AllLaunches = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%
+  width: 98%;
   align-items: center;
-  margin-top: 10px;
+  margin: 10px auto;
+  box-sizing: border-box;
+
 `;
 
-const LaunchesHeading = styled.h2``;
+const LaunchesHeading = styled.h2`
+  width: 100%;
+  box-sizing: border-box;
+`;
 
 function Launches(props) {
-  const displayLaunches = props.launches.map((launch) => {
-    return (
-      <Launch key={launch.flight_number} launchInfo={launch} />
-    );
-  });
-
   return (
-    <LaunchesContainer>
-      <LaunchesHeading>Launches</LaunchesHeading>
-      {displayLaunches}
-    </LaunchesContainer>
+    <AllLaunches>
+      <LaunchesHeading>Past Launches:</LaunchesHeading>
+      <LaunchesContainer type='past' />
+      <LaunchesHeading>Future Launches:</LaunchesHeading>
+      <LaunchesContainer type='future' />
+    </AllLaunches>
   );
 }
 

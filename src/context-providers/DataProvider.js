@@ -9,7 +9,8 @@ class DataProvider extends Component {
     super(props);
     this.state = {
       missions: [],
-      launches: [],
+      pastLaunches: [],
+      futureLaunches: [],
 
     };
   };
@@ -29,27 +30,42 @@ class DataProvider extends Component {
         console.log(error);
       });
   }
-  getLaunchesData = () => {
-    axios.get(`${API_HOST}launches/`)
+
+  getPastLaunchesData = () => {
+    axios.get(`${API_HOST}launches/past/`)
       .then(response => {
         // console.log(response.data);
         this.setState({
-          launches: response.data,
+          pastLaunches: response.data,
         })
       })
       .catch(error => {
         console.log(error);
       });
-
   }
+
+  getFutureLaunchesData = () => {
+    axios.get(`${API_HOST}launches/upcoming`)
+      .then(response => {
+        // console.log(response.data);
+        this.setState({
+          futureLaunches: response.data,
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <Provider value={{
         ...this.state,
         getMissionsData: this.getMissionsData,
-        getLaunchesData: this.getLaunchesData,
         getMissionDetails: this.getMissionDetails,
-        
+        getPastLaunchesData: this.getPastLaunchesData,
+        getFutureLaunchesData: this.getFutureLaunchesData,
+
       }}>
         {this.props.children}
       </Provider>
