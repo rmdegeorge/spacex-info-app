@@ -17,7 +17,7 @@ import Payload from './components/Payload';
 import Rockets from './containers/Rockets';
 
 const AppContainer = styled.div`
-  width: 100vw;
+  width: 100%;
 `;
 
 

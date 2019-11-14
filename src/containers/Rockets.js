@@ -29,24 +29,20 @@ const RocketsSubHeading = styled.div`
   font-weight: bold;
 `;
 
-// *~*~*~*~*~*~*~*~*~BUILD CONDITIONAL ROCKET DETAILS POPUP~*~*~*~*~*~*~*~*~*~*~*~*
-
-
-
 class Rockets extends Component {
   componentDidMount() {
     this.props.getRocketsData();
   }
   render() {
     const displayRockets = this.props.rockets.map(rocket => (
-      <Rocket key={rocket.id} detailed='false' rocketInfo={rocket} />
+      <Rocket key={rocket.id} detailed={false} rocketInfo={rocket} />
     ))
     return (
       <RocketsContainer>
         {
           this.props.rocketDetailsToggled.toggled 
           ?
-          <Rocket key={this.props.rocketDetailsToggled.id + 'popup'} detailed='true' rocketInfo={this.props.rockets.find(rocket => rocket.id === this.props.rocketDetailsToggled.id)} />
+          <Rocket key={this.props.rocketDetailsToggled.id + 'popup'} detailed={true} rocketInfo={this.props.rockets.find(rocket => rocket.id === this.props.rocketDetailsToggled.id)} />
           : 
           null
         }

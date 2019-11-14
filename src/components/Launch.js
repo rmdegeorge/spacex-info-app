@@ -38,7 +38,6 @@ const FailureToolTip = styled(ToolTip)`
 `;
 
 function Launch(props) {
-  console.log(props.launchInfo)
   const {flight_number,mission_name,mission_id,launch_year,launch_date_utc,launch_site,launch_success,launch_failure_details,details,links,rocket} = props.launchInfo
   const displayCustomers = rocket.second_stage.payloads.map((payload) => payload.customers.join(", ")).join(' ; ');
   

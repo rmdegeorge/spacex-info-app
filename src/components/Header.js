@@ -17,7 +17,7 @@ const Title = styled.h1`
 function Header(props) {
   return (
     <HeaderContainer>
-      <Title>Title of Site</Title>
+      <Title>Space Race</Title>
       <Navbar />
     </HeaderContainer>
   );

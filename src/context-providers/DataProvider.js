@@ -79,7 +79,7 @@ class DataProvider extends Component {
   }
 
   toggleRocketDetails = (id) => {
-    console.log(id)
+    // console.log(id)
     this.setState(prevState => ({
       rocketDetailsToggled: {
         toggled: !prevState.rocketDetailsToggled.toggled,
