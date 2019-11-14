@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {withData} from '../context-providers/DataProvider';
+import {withData} from '../context-providers/DataProvider'
 
 const RocketContainer = styled.div`
   display: grid;
@@ -96,9 +96,23 @@ class Rocket extends React.Component {
           boosters,
           stages,
           active} = this.props.rocketInfo;
-  
     return (
-      <RocketContainer expanded={this.props.rocketDetailsToggled} onClick={(event) => this.props.toggleRocketDetails(event, this.props.rocketInfo.id)}>
+      this.props.detailed === 'true' 
+      ? 
+      <RocketContainer>
+        <RocketName>{rocket_name}</RocketName>
+        <Status>{active ? 'Active' : 'Inactive'}</Status>
+        <FirstFlight>{first_flight}</FirstFlight>
+        <SuccessRate>{success_rate_pct}%</SuccessRate>
+        <Cost>{this.props.toCurrency(cost_per_launch)}</Cost>
+        <Dimensions>
+          <div><strong>Height: </strong>{height.meters}m ({height.feet}ft)</div>
+          <div><strong>Diameter: </strong>{diameter.meters}m ({diameter.feet}ft)</div>
+          <div><strong>Mass: </strong>{mass.kg}kg ({mass.lb}lbs)</div>
+        </Dimensions>
+      </RocketContainer> 
+      : 
+      <RocketContainer expanded={this.props.rocketDetailsToggled.toggled} onClick={() => this.props.toggleRocketDetails(this.props.rocketInfo.id)}>
         <RocketName>{rocket_name}</RocketName>
         <Status>{active ? 'Active' : 'Inactive'}</Status>
         <FirstFlight>{first_flight}</FirstFlight>
@@ -110,6 +124,7 @@ class Rocket extends React.Component {
           <div><strong>Mass: </strong>{mass.kg}kg ({mass.lb}lbs)</div>
         </Dimensions>
       </RocketContainer>
+      
     );
   }
 }

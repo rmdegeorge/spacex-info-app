@@ -31,16 +31,25 @@ const RocketsSubHeading = styled.div`
 
 // *~*~*~*~*~*~*~*~*~BUILD CONDITIONAL ROCKET DETAILS POPUP~*~*~*~*~*~*~*~*~*~*~*~*
 
+
+
 class Rockets extends Component {
   componentDidMount() {
     this.props.getRocketsData();
   }
   render() {
     const displayRockets = this.props.rockets.map(rocket => (
-      <Rocket key={rocket.id} rocketInfo={rocket} />
+      <Rocket key={rocket.id} detailed='false' rocketInfo={rocket} />
     ))
     return (
       <RocketsContainer>
+        {
+          this.props.rocketDetailsToggled.toggled 
+          ?
+          <Rocket key={this.props.rocketDetailsToggled.id + 'popup'} detailed='true' rocketInfo={this.props.rockets.find(rocket => rocket.id === this.props.rocketDetailsToggled.id)} />
+          : 
+          null
+        }
         <RocketsHeading>Rockets</RocketsHeading>
         <RocketsSubHeading>
           <div>Name</div>
@@ -51,6 +60,7 @@ class Rockets extends Component {
           <div>Dimensions</div>
         </RocketsSubHeading>
         {displayRockets}
+        
       </RocketsContainer>
     );
   }

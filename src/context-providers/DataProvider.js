@@ -12,7 +12,10 @@ class DataProvider extends Component {
       pastLaunches: [],
       futureLaunches: [],
       rockets: [],
-      rocketDetailsToggled: false,
+      rocketDetailsToggled: {
+        toggled: false,
+        id: '',
+      },
 
     };
   };
@@ -75,10 +78,13 @@ class DataProvider extends Component {
       });
   }
 
-  toggleRocketDetails = (event,id) => {
+  toggleRocketDetails = (id) => {
     console.log(id)
     this.setState(prevState => ({
-      rocketDetailsToggled: !prevState.rocketDetailsToggled
+      rocketDetailsToggled: {
+        toggled: !prevState.rocketDetailsToggled.toggled,
+        id: id
+      }
     }));
   }
 
