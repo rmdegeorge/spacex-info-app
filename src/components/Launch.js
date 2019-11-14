@@ -59,8 +59,8 @@ function Launch(props) {
           ? 
           <Success>Success</Success> 
           : <Failure>
-              <div data-tip={`Reason for failure:\n${launch_failure_details.reason}`} data-event='click focus'>Failure</div>
-              <FailureToolTip globalEventOff='click' delayHide={1000} effect='float' />
+              <div data-tip={`Reason for failure:\n${launch_failure_details.reason}`} data-event='click focus' data-iscapture='true'>Failure</div>
+              <FailureToolTip globalEventOff='click' delayHide={1000} effect='float'/>
             </Failure>
       }
 

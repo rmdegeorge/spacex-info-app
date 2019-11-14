@@ -22,6 +22,7 @@ function Navbar(props) {
       <NavLink to='/'>Home</NavLink>
       <NavLink to='/Missions'>Missions</NavLink>
       <NavLink to='/Launches'>Launches</NavLink>
+      <NavLink to='/Rockets'>Rockets</NavLink>
       <NavLink to='/Payloads'>Payloads</NavLink>
 
     </NavContainer>

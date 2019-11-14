@@ -14,6 +14,7 @@ import PastLaunches from './containers/PastLaunches';
 import Launch from './components/Launch';
 import Payloads from './containers/Payloads';
 import Payload from './components/Payload';
+import Rockets from './containers/Rockets';
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -40,6 +41,7 @@ class App extends React.Component {
           <Route path='/Launches/FutureLaunches' component={FutureLaunches} />
           <Route path='/Launches/PastLaunches' component={PastLaunches} />
           <Route path='/Launches/:flight_number' component={Launch} />
+          <Route path='/Rockets' component={Rockets} />
           <Route exact path='/Payloads' component={Payloads} />
           <Route path='/Payloads/:uid' component={Payload} />
         </Switch>

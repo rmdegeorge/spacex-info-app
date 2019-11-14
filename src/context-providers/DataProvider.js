@@ -11,9 +11,14 @@ class DataProvider extends Component {
       missions: [],
       pastLaunches: [],
       futureLaunches: [],
+      rockets: [],
+      rocketDetailsToggled: false,
 
     };
   };
+  toCurrency = (num,symbol='$',currency='USD') => {
+    return `${symbol}${num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ${currency}`;
+  }
   getMissionDetails = (mission_id) => {
     return axios.get(`${API_HOST}missions/${mission_id}`)
   }
@@ -56,15 +61,38 @@ class DataProvider extends Component {
         console.log(error);
       });
   }
+  
+  getRocketsData = () => {
+    axios.get(`${API_HOST}rockets`)
+      .then(response => {
+        // console.log(response.data);
+        this.setState({
+          rockets: response.data,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  toggleRocketDetails = (event,id) => {
+    console.log(id)
+    this.setState(prevState => ({
+      rocketDetailsToggled: !prevState.rocketDetailsToggled
+    }));
+  }
 
   render() {
     return (
       <Provider value={{
         ...this.state,
+        toCurrency: this.toCurrency,
         getMissionsData: this.getMissionsData,
         getMissionDetails: this.getMissionDetails,
         getPastLaunchesData: this.getPastLaunchesData,
         getFutureLaunchesData: this.getFutureLaunchesData,
+        getRocketsData: this.getRocketsData,
+        toggleRocketDetails: this.toggleRocketDetails,
 
       }}>
         {this.props.children}
