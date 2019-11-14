@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
   }  
   * {
     box-sizing: border-box;
+    transition: 'all 1.0s ease-in-out'
   }
 `;
 

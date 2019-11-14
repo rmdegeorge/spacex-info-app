@@ -9,6 +9,8 @@ const MissionContainer = styled.div`
   border: 1px solid #000000;
   padding: 10px;
   margin-bottom: 20px
+  box-shadow: 14px 10px 21px 0px rgba(31,31,31,1);
+
 `;
 
 const MissionTitle = styled.div`

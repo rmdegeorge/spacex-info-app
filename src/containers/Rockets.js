@@ -18,7 +18,7 @@ const RocketsHeading = styled.h2`
 
 const RocketsSubHeading = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   border-bottom: 2px solid #000000;
   box-sizing: border-box;
@@ -53,7 +53,6 @@ class Rockets extends Component {
           <div>First Flight</div>
           <div>Success Rate</div>
           <div>Cost per Launch</div>
-          <div>Dimensions</div>
         </RocketsSubHeading>
         {displayRockets}
         
