@@ -39,11 +39,6 @@ const RocketsSubHeading = styled.div`
 class Rockets extends Component {
   componentDidMount() {
     this.props.getRocketsData();
-    this.props.updateWindowDimensions();
-    window.addEventListener('resize', this.props.updateWindowDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.props.updateWindowDimensions);
   }
   render() {
     const displayRockets = this.props.rockets.map(rocket => (

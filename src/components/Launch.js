@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import ToolTip from 'react-tooltip';
+import { withData } from '../context-providers/DataProvider';
 
 const LaunchContainer = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   border-bottom: 1px solid #a3a3a3;
   box-sizing: border-box;
@@ -12,6 +12,23 @@ const LaunchContainer = styled.div`
   padding: 5px;
   margin-bottom: 10px;
   font-size: 12px;
+  ${props => 
+    props.size ==='mobile'
+    ?
+    `
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    `
+    :
+    props.size === 'tablet'
+      ?
+      `
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      `
+      :
+      `
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+      `
+  }
 `;
 
 const LaunchTitle = styled.div``;
@@ -23,10 +40,12 @@ const Success = styled.div``;
 const Failure = styled.div`
   box-sizing: border-box;
 
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
-    font-weight: bold;
+  > :nth-child(1n) {
+    :hover {
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: bold;
+    }
   }
 `;
 const FailureToolTip = styled(ToolTip)`
@@ -45,11 +64,11 @@ function Launch(props) {
   
   
   return (
-    <LaunchContainer>
+    <LaunchContainer size={props.size}>
       <LaunchDate>{new Date(launch_date_utc).toUTCString()}</LaunchDate>
       <LaunchTitle>{mission_name}</LaunchTitle>
-      <Customer>{displayCustomers}</Customer>
-      <LaunchSite>{launch_site.site_name}</LaunchSite>
+      {props.size === 'mobile' || props.size === 'tablet' ? null : <Customer>{displayCustomers}</Customer>}
+      {props.size === 'mobile' ? null : <LaunchSite>{launch_site.site_name}</LaunchSite>}
       <Rocket>{rocket.rocket_name}</Rocket>
       
       {props.type === 'future'
@@ -59,14 +78,15 @@ function Launch(props) {
         launch_success 
           ? 
           <Success>Success</Success> 
-          : <Failure>
-              <div data-tip={`Reason for failure:\n${launch_failure_details.reason}`} data-event='click focus' data-iscapture='true'>Failure</div>
-              <FailureToolTip globalEventOff='click' delayHide={5000} effect='float'/>
-            </Failure>
+          : 
+          <Failure>
+            <div data-tip={`Reason for failure:\n${launch_failure_details.reason}`} data-event='click focus' data-iscapture='true'>Failure</div>
+            <FailureToolTip globalEventOff='click' delayHide={5000} effect='float'/>
+          </Failure>
       }
 
     </LaunchContainer>
   );
 }
 
-export default Launch;
+export default withData(Launch);
