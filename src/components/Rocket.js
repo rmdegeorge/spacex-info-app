@@ -5,34 +5,69 @@ import {device} from '../themes/GlobalStyle';
 import {Link} from 'react-router-dom';
 
 const RocketContainer = styled.div`
+  paosition: relative;
   ${props => props.detailed 
     ?
     // detailed
     `
-    position: absolute;
     font-size: 11pt;
-    top: 15vw;
-    left: 15vw;
-    max-width: 70vw;
-    max-height: 90vh;
+    width: 95vw;
+    max-width: 420px;
     border: 1px solid #000000;
+    border-radius: 5px;
     background-color: white;
     box-shadow: 14px 10px 21px 0px rgba(31,31,31,1);
     padding: 10px;
+    margin: 50px 0 0 0;
     display: grid;
-    grid-template-areas: 
-      "nm nm nm nm nm nm"
-      "ds ds ds ds ds ds"
-      "ds ds ds ds ds ds"
-      "sr sr ff ff st co"
-      "di di fs fs ss ss"
-      "di di fs fs ss ss"
-      "po po po po po po"
-    ;
     grid-gap: 5px;
+    grid-template-areas: 
+        "bt . . ."
+        "nm nm nm nm"
+        "ds ds ds ds"
+        "ds ds ds ds"
+        "sr sr ff ff"
+        "st st co co"
+        "di di di ."
+        "di di di ."
+        "fs fs fs ."
+        "ss ss ss ."
+        "po po po ."
+      ;
+
     > * {
       padding: 5px;
-
+    }
+    @media ${device.tablet} {
+      width: 95vw;
+      max-width: 760px;
+      grid-template-areas: 
+        "bt . . ."
+        "nm nm nm nm"
+        "ds ds ds ds"
+        "ds ds ds ds"
+        "sr sr ff ff"
+        "st st co co"
+        "di di di ."
+        "di di di ."
+        "fs fs fs ."
+        "ss ss ss ."
+        "po po po ."
+      ;
+    }
+      
+    @media ${device.computer} {
+      width: 70vw;
+      max-width: 1000px;
+      grid-template-areas: 
+        "bt nm nm nm nm nm"
+        "ds ds ds ds ds ds"
+        "ds ds ds ds ds ds"
+        "sr sr ff ff st co"
+        "di di fs fs ss ss"
+        "di di fs fs ss ss"
+        "po po po po po po"
+      ;
     }
     `
     :
@@ -193,12 +228,10 @@ const Description = styled.div`
 `;
 
 const ClosePopupButton = styled.button`
+  grid-area: bt;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 5px;
-  left: 5px;
   width: 20px;
   height: 20px;
 `;
@@ -309,24 +342,15 @@ class Rocket extends React.Component {
       </RocketContainer> 
       : 
       // renders this if this component is being used in the list of rockets
-        this.props.windowSize.width > 1024 
-        ?
-        <RocketContainer onClick={() => this.props.toggleRocketDetails(id)}>
-          <RocketName>{rocket_name}</RocketName>
-          <Status>{active ? 'Active' : 'Inactive'}</Status>
-          <FirstFlight>{first_flight}</FirstFlight>
-          <SuccessRate>{success_rate_pct}%</SuccessRate>
-          <Cost>{this.props.toCurrency(cost_per_launch)}</Cost>
-        </RocketContainer>
-        : 
-        <RocketContainer>
-          <RocketNameLink to={`/Rockets/${rocket_id}`}>{rocket_name}</RocketNameLink>
-          
-          <Status>{active ? 'Active' : 'Inactive'}</Status>
-          <FirstFlight>{first_flight}</FirstFlight>
-          <SuccessRate>{success_rate_pct}%</SuccessRate>
-          <Cost>{this.props.toCurrency(cost_per_launch)}</Cost>
-        </RocketContainer>
+      <RocketContainer onClick={() => this.props.toggleRocketDetails(id)}>
+        <RocketName>{rocket_name}</RocketName>
+        <Status>{active ? 'Active' : 'Inactive'}</Status>
+        <FirstFlight>{first_flight}</FirstFlight>
+        <SuccessRate>{success_rate_pct}%</SuccessRate>
+        <Cost>{this.props.toCurrency(cost_per_launch)}</Cost>
+      </RocketContainer>
+        
+        
     );
   }
 }
