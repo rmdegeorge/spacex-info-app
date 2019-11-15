@@ -37,13 +37,9 @@ class App extends React.Component {
           <Route exact path='/' component={Home} />
           <Route exact path='/Missions' component={Missions} />
           <Route path='/Missions/:mission_id' component={MissionDetail} />
-          <Route exact path='/Launches' component={Launches} />
-          <Route path='/Launches/FutureLaunches' component={FutureLaunches} />
-          <Route path='/Launches/PastLaunches' component={PastLaunches} />
-          <Route path='/Launches/:flight_number' component={Launch} />
+          <Route path='/Launches' component={Launches} />
           <Route path='/Rockets' component={Rockets} />
-          <Route exact path='/Payloads' component={Payloads} />
-          <Route path='/Payloads/:uid' component={Payload} />
+          
         </Switch>
       </AppContainer>
     );

@@ -6,7 +6,6 @@ const MissionDetailContainer = styled.div`
   margin: auto;
   width: 75%;
   box-sizing: border-box;
-  border: 1px solid #000000;
   padding: 10px;
   margin-bottom: 20px
 `;

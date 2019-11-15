@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 const NavContainer = styled.nav`
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 50%;
   padding: 10px;
 `;
 
@@ -26,7 +26,6 @@ function Navbar(props) {
       <NavLink to='/Missions'>Missions</NavLink>
       <NavLink to='/Launches'>Launches</NavLink>
       <NavLink to='/Rockets'>Rockets</NavLink>
-      <NavLink to='/Payloads'>Payloads</NavLink>
 
     </NavContainer>
   );

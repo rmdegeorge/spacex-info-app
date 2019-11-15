@@ -8,6 +8,7 @@ class DataProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      history: [],
       missions: [],
       pastLaunches: [],
       futureLaunches: [],
@@ -22,6 +23,20 @@ class DataProvider extends Component {
   toCurrency = (num,symbol='$',currency='USD') => {
     return `${symbol}${num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ${currency}`;
   }
+
+  getHistory = () => {
+    axios.get(`${API_HOST}history/`)
+      .then(response => {
+        // console.log(response.data);
+        this.setState({
+          history: response.data,
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   getMissionDetails = (mission_id) => {
     return axios.get(`${API_HOST}missions/${mission_id}`)
   }
@@ -93,6 +108,7 @@ class DataProvider extends Component {
       <Provider value={{
         ...this.state,
         toCurrency: this.toCurrency,
+        getHistory: this.getHistory,
         getMissionsData: this.getMissionsData,
         getMissionDetails: this.getMissionDetails,
         getPastLaunchesData: this.getPastLaunchesData,
