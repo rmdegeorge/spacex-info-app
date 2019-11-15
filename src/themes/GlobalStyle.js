@@ -1,5 +1,16 @@
 import {createGlobalStyle} from 'styled-components';
 
+const size = {
+  mobile: '425px',
+  tablet: '768px',
+  computer: '1024px',
+}
+export const device = {
+  mobile: `(min-width: ${size.mobile})`,
+  tablet: `(min-width: ${size.tablet})`,
+  computer: `(min-width: ${size.computer})`,
+}
+
 const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0;

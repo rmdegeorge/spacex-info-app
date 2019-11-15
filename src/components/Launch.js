@@ -25,6 +25,8 @@ const Failure = styled.div`
 
   :hover {
     cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
   }
 `;
 const FailureToolTip = styled(ToolTip)`
@@ -59,7 +61,7 @@ function Launch(props) {
           <Success>Success</Success> 
           : <Failure>
               <div data-tip={`Reason for failure:\n${launch_failure_details.reason}`} data-event='click focus' data-iscapture='true'>Failure</div>
-              <FailureToolTip globalEventOff='click' delayHide={1000} effect='float'/>
+              <FailureToolTip globalEventOff='click' delayHide={5000} effect='float'/>
             </Failure>
       }
 

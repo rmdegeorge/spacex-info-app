@@ -3,17 +3,25 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Headroom from 'react-headroom';
 
+import {device} from '../themes/GlobalStyle';
+
 import Navbar from './Navbar';
 
 const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   color: #ffffff;
   background-color: #000000;
   padding: 0 10% 0 10%;
 
-  ${props => props.visible ? null : `top: -100px;`}
+  @media ${device.computer} {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+
 `;
 const NavLink = styled(Link)`  
   text-align: center;
@@ -23,19 +31,28 @@ const NavLink = styled(Link)`
   :hover {
     border-bottom: 3px solid #ffffff;
   }
+
 `;
 const Title = styled.h1`
-  padding: 10px;
-  width: 50%;
+  width: 100%;
+  text-align: center;
+  
+  > :nth-child(1) {
+    border: none;
+  }
+
+  @media ${device.computer} {
+    padding: 10px;
+    width: 50%;
+
+  }
+
+  
+
 `;
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-
     return (
       <Headroom>
         <HeaderContainer>

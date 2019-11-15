@@ -54,7 +54,17 @@ class MissionDetail extends React.Component {
     })
   }
   render() {
-    const {mission_name,mission_id,description,manufacturers,wikipedia,twitter,payload_ids} = this.state.missionDetails;
+    
+    const {
+      mission_name,
+      mission_id,
+      description,
+      manufacturers,
+      wikipedia,
+      twitter,
+      payload_ids
+    } = this.state.missionDetails;
+
     return (
       <MissionDetailContainer>
         <Title>{mission_name}</Title>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const NewsEntryContainer = styled.div`
   border: 1px solid #000000;
-  width: 75%;
+  width: 100%;
   padding: 10px;
   margin: 0 0 20px 0;
   box-shadow: 14px 10px 21px 0px rgba(31,31,31,1);

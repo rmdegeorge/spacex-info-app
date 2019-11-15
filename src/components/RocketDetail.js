@@ -5,10 +5,7 @@ import {device} from '../themes/GlobalStyle';
 import {Link} from 'react-router-dom';
 
 const RocketContainer = styled.div`
-  ${props => props.detailed 
-    ?
-    // detailed
-    `
+
     position: absolute;
     font-size: 11pt;
     top: 15vw;
@@ -34,24 +31,7 @@ const RocketContainer = styled.div`
       padding: 5px;
 
     }
-    `
-    :
-    // NOT detailed
-    `
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 50px;
-    border-bottom: 1px solid #a3a3a3;
-    width: 100%;
-    padding: 5px;
-    font-size: 12px;
 
-    > :nth-child(1n) {
-      text-align: center;
-    }
-  
-    `
-  }
 `;
 // nm - name
 // ds - description
@@ -67,139 +47,83 @@ const RocketNameLink = styled(Link)`
 
 `;
 const RocketName = styled.div`
-  
-  ${props => props.detailed 
-    ?
-    // detailed
-    `
-    grid-area: nm;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
+  grid-area: nm;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
 
-    > a {
-      color: #000000;
-      text-decoration: none;
-      :hover {
-        text-decoration: underline;
-        font-weight: bold;
-      }
+  > a {
+    color: #000000;
+    text-decoration: none;
+    :hover {
+      text-decoration: underline;
+      font-weight: bold;
     }
-    `
-    :
-    // NOT detailed
-    ``
   }
 `;
 
 const Status = styled.div`
-  ${props => props.detailed 
-    ?
-    // detailed
-    `
-    grid-area: st;
+  grid-area: st;
 
-    > :nth-child(1) {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    `
-    :
-    // NOT detailed
-    ``
+  > :nth-child(1) {
+    font-size: 16px;
+    font-weight: bold;
   }
 `;
 const FirstFlight = styled.div`
-  ${props => props.detailed 
-    ?
-    // detailed
-    `
-    grid-area: ff;
+  grid-area: ff;
 
-    > :nth-child(1) {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    `
-    :
-    // NOT detailed
-    ``
+  > :nth-child(1) {
+    font-size: 16px;
+    font-weight: bold;
   }
 `;
 const Dimensions = styled.div`
   display: flex;
   flex-direction: column;
-  ${props => props.detailed 
-    ?
-    // detailed
-    `
-    grid-area: di;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-auto-rows: auto;
-  
-    > :nth-child(1) {
-      grid-column: 1 / span 2;
-      font-size: 16px;
-      font-weight: bold;
-    }
-    `
-    :
-    // NOT detailed
-    ``
+  grid-area: di;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-auto-rows: auto;
+
+  > :nth-child(1) {
+    grid-column: 1 / span 2;
+    font-size: 16px;
+    font-weight: bold;
   }
-  
 `;
 const SuccessRate = styled.div`
-  ${props => props.detailed 
-    ?
-    // detailed
-    `
-    grid-area: sr;
+  grid-area: sr;
 
-    > :nth-child(1) {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    `
-    :
-    // NOT detailed
-    ``
+  > :nth-child(1) {
+    font-size: 16px;
+    font-weight: bold;
   }
 `;
 const Cost = styled.div`
-  ${props => props.detailed 
-    ?
-    // detailed
-    `
-    grid-area: co;
-    
-    > :nth-child(1) {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    `
-    :
-    // NOT detailed
-    ``
+  grid-area: co;
+
+  > :nth-child(1) {
+    font-size: 16px;
+    font-weight: bold;
   }
 `;
 
 const Description = styled.div`
-    grid-area: ds;
-    text-align: center;
+  grid-area: ds;
+  text-align: center;
 `;
 
-const ClosePopupButton = styled.button`
+const BackButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 5px;
   left: 5px;
-  width: 20px;
+  width: 40px;
   height: 20px;
 `;
 
@@ -233,11 +157,24 @@ const PayloadOptions = styled.div`
   grid-area: po;
 `;
 
-class Rocket extends React.Component {
-  
+class RocketDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rocket_id: this.props.match.params.rocket_id,
+      rocketDetails: {},
+    }
+  }
+  componentDidMount() {
+    this.props.getRocketDetail(this.state.rocket_id).then(response => {
+      console.log(response.data)
+      this.setState({
+        rocketDetails: response.data
+      })
+    })
+  }
   render() {
     const {id,
-          rocket_id,
           rocket_name,
           description,
           engines,
@@ -253,37 +190,79 @@ class Rocket extends React.Component {
           boosters,
           stages,
           active,
-          wikipedia} = this.props.rocketInfo;
-    const {toggled} = this.props.rocketDetailsToggled
+          wikipedia} = this.state.rocketDetails;
+    console.log(this.state.rocketDetails)
     return (
-      this.props.detailed === true 
-      ? 
-      // renders this if this component is being used as a popup for more details
-      <RocketContainer detailed={toggled}>
-        <ClosePopupButton onClick={() => this.props.toggleRocketDetails('')}>X</ClosePopupButton>
-        <RocketName detailed={toggled}>
+      
+      <RocketContainer>
+        <BackButton>Back</BackButton>
+        <RocketName>
           <a href={wikipedia}>{rocket_name}</a>
-          </RocketName>
+        </RocketName>
         <Description>
           <div>{description}</div>
         </Description>
-        <Status detailed={toggled}>
+        <Status>
           <div>Status:</div>
           <div>{active ? 'Active' : 'Inactive'}</div>
-          </Status>
-        <FirstFlight detailed={toggled}>
+        </Status>
+        <FirstFlight>
           <div>First Flight:</div>
           <div>{first_flight}</div>
         </FirstFlight>
-        <SuccessRate detailed={toggled}>
+        <SuccessRate>
           <div>Success Rate:</div>
           <div>{success_rate_pct}%</div>
         </SuccessRate>
-        <Cost detailed={toggled}>
+        <Cost>
           <div>Cost per Launch:</div>
-          <div>{this.props.toCurrency(cost_per_launch)}</div>
+          <div>{cost_per_launch !== undefined ? this.props.toCurrency(cost_per_launch) : null}</div>
         </Cost>
-        <Dimensions detailed={toggled}>
+        <Dimensions>
+        <div>Dimensions:</div>
+          <div>Height: </div>
+            {/* <div>{height.meters}m ({height.feet}ft)</div> */}
+          <div>Diameter: </div>
+            {/* <div>{diameter.meters}m ({diameter.feet}ft)</div> */}
+          <div>Mass: </div>
+            {/* <div>{mass.kg}kg ({mass.lb}lbs)</div> */}
+        </Dimensions>
+        <FirstStageInfo>
+          <div>First Stage Info:</div>
+          <div>Number of Engines:</div>
+            {/* <div>{first_stage.engines}</div> */}
+          <div>Reusable:</div>
+            {/* <div>{first_stage.reusable ? 'Reusable' : 'Not Reusable'}</div> */}
+          <div>Fuel Capacity:</div>
+            {/* <div>{first_stage.fuel_amount_tons} tons</div> */}
+          <div>Burn Time:</div>
+            {/* <div>{first_stage.burn_time_sec} sec</div> */}
+          <div>Thrust at Sea Level:</div>
+            {/* <div>{first_stage.thrust_sea_level.kN}kN ({first_stage.thrust_sea_level.lbf}lbf)</div> */}
+          <div>Thrust in Vacuum:</div>
+            {/* <div>{first_stage.thrust_vacuum.kN}kN ({first_stage.thrust_vacuum.lbf}lbf)</div> */}
+        
+        </FirstStageInfo>
+        <SecondStageInfo>
+          <div>Second Stage Info:</div>
+          <div>Number of Engines:</div>
+            {/* <div>{second_stage.engines}</div> */}
+          <div>Reusable:</div>
+            {/* <div>{second_stage.reusable ? 'Reusable' : 'Not Reusable'}</div> */}
+          <div>Fuel Capacity:</div>
+            {/* <div>{second_stage.fuel_amount_tons} tons</div> */}
+          <div>Burn Time:</div>
+            {/* <div>{second_stage.burn_time_sec} sec</div> */}
+          <div>Thrust:</div>
+            {/* <div>{second_stage.thrust.kN}kN ({second_stage.thrust.lbf}lbf)</div> */}
+        </SecondStageInfo>
+      </RocketContainer>   
+        /* 
+        
+        
+        ~*~*~*~*~~*~*~*~~*~*~*~*NONE OF THESE PARTS WORK. IT SAYS THE PROPS ARE UNDEFINED....~*~~*~*~*~*~*~*~*~~*~*~*~*~*~
+      
+        <Dimensions>
           <div>Dimensions:</div>
           <div>Height: </div><div>{height.meters}m ({height.feet}ft)</div>
           <div>Diameter: </div><div>{diameter.meters}m ({diameter.feet}ft)</div>
@@ -305,30 +284,11 @@ class Rocket extends React.Component {
           <div>Fuel Capacity:</div><div>{second_stage.fuel_amount_tons} tons</div>
           <div>Burn Time:</div><div>{second_stage.burn_time_sec} sec</div>
           <div>Thrust:</div><div>{second_stage.thrust.kN}kN ({second_stage.thrust.lbf}lbf)</div>
-        </SecondStageInfo>
-      </RocketContainer> 
-      : 
-      // renders this if this component is being used in the list of rockets
-        this.props.windowSize.width > 1024 
-        ?
-        <RocketContainer onClick={() => this.props.toggleRocketDetails(id)}>
-          <RocketName>{rocket_name}</RocketName>
-          <Status>{active ? 'Active' : 'Inactive'}</Status>
-          <FirstFlight>{first_flight}</FirstFlight>
-          <SuccessRate>{success_rate_pct}%</SuccessRate>
-          <Cost>{this.props.toCurrency(cost_per_launch)}</Cost>
-        </RocketContainer>
-        : 
-        <RocketContainer>
-          <RocketNameLink to={`/Rockets/${rocket_id}`}>{rocket_name}</RocketNameLink>
-          
-          <Status>{active ? 'Active' : 'Inactive'}</Status>
-          <FirstFlight>{first_flight}</FirstFlight>
-          <SuccessRate>{success_rate_pct}%</SuccessRate>
-          <Cost>{this.props.toCurrency(cost_per_launch)}</Cost>
-        </RocketContainer>
+        </SecondStageInfo> */
+      
+      
     );
   }
 }
 
-export default withData(Rocket);
+export default withData(RocketDetail);

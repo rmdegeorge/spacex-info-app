@@ -9,12 +9,8 @@ import Home from './containers/Home';
 import Missions from './containers/Missions';
 import MissionDetail from './components/MissionDetail';
 import Launches from './containers/Launches';
-import FutureLaunches from './containers/FutureLaunches';
-import PastLaunches from './containers/PastLaunches';
-import Launch from './components/Launch';
-import Payloads from './containers/Payloads';
-import Payload from './components/Payload';
 import Rockets from './containers/Rockets';
+import RocketDetail from './components/RocketDetail';
 
 const AppContainer = styled.div`
   width: 100%;
@@ -38,8 +34,8 @@ class App extends React.Component {
           <Route exact path='/Missions' component={Missions} />
           <Route path='/Missions/:mission_id' component={MissionDetail} />
           <Route path='/Launches' component={Launches} />
-          <Route path='/Rockets' component={Rockets} />
-          
+          <Route exact path='/Rockets' component={Rockets} />
+          <Route path='/Rockets/:rocket_id' component={RocketDetail} />
         </Switch>
       </AppContainer>
     );

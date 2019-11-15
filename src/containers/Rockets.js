@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import {withData} from '../context-providers/DataProvider';
+import {device} from '../themes/GlobalStyle';
 
 import Rocket from '../components/Rocket';
 
@@ -10,7 +11,12 @@ const RocketsContainer = styled.div`
   align-items: center;
   width: 98%;
   margin: 0 auto;
-
+  @media ${device.tablet} {
+    width: 75%;
+  }
+  @media ${device.computer} {
+    width: 50%;
+  }
 `;
 
 const RocketsHeading = styled.h2`
@@ -27,11 +33,17 @@ const RocketsSubHeading = styled.div`
   padding: 5px;
   font-size: 12px;
   font-weight: bold;
+  text-align: center;
 `;
 
 class Rockets extends Component {
   componentDidMount() {
     this.props.getRocketsData();
+    this.props.updateWindowDimensions();
+    window.addEventListener('resize', this.props.updateWindowDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.updateWindowDimensions);
   }
   render() {
     const displayRockets = this.props.rockets.map(rocket => (

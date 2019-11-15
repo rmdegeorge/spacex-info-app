@@ -17,9 +17,22 @@ class DataProvider extends Component {
         toggled: false,
         id: '',
       },
+      windowSize: {
+        width: 0,
+        height: 0,
+      },
 
     };
   };
+  updateWindowDimensions = () => {
+    this.setState({
+      windowSize: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      }
+    })
+  }
+  
   toCurrency = (num,symbol='$',currency='USD') => {
     return `${symbol}${num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ${currency}`;
   }
@@ -36,7 +49,9 @@ class DataProvider extends Component {
         console.log(error);
       });
   }
-
+  getRocketDetail = (rocket_id) => {
+    return axios.get(`${API_HOST}rockets/${rocket_id}`)
+  }
   getMissionDetails = (mission_id) => {
     return axios.get(`${API_HOST}missions/${mission_id}`)
   }
@@ -115,6 +130,8 @@ class DataProvider extends Component {
         getFutureLaunchesData: this.getFutureLaunchesData,
         getRocketsData: this.getRocketsData,
         toggleRocketDetails: this.toggleRocketDetails,
+        updateWindowDimensions: this.updateWindowDimensions,
+        getRocketDetail: this.getRocketDetail,
 
       }}>
         {this.props.children}
