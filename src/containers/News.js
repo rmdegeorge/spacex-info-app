@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 import NewsEntry from '../components/NewsEntry';
 import { withData } from '../context-providers/DataProvider';
@@ -21,7 +21,7 @@ const NewsHeader = styled.h2`
   font-size: 20pt;
 `;
 
-class News extends React.Component {
+class News extends Component {
   componentDidMount() {
     this.props.getHistory();
   }
@@ -37,3 +37,5 @@ class News extends React.Component {
 }
 
 export default withData(News);
+
+
